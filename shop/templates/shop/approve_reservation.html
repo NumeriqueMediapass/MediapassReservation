@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Approuver la réservation {{ reservation.product.name }} | {{ block.super }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Approuver la réservation</h5>
+
+            <div class="card-body">
+                <p>Produit : {{ reservation.product.name }}</p>
+                <p>Date début : {{ reservation.start_date|date:'d/m/Y' }} - Heure de dépot : {{ reservation.deposit_time }}</p>
+                <p>Date fin : {{ reservation.end_date|date:'d/m/Y' }} - Heure de retour : {{ reservation.pickup_time }}</p>
+                <p>Quantité : {{ reservation.quantity }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Approuver</button>
+                    <a href="{% url 'delete_reservation' reservation.pk %}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?');">Supprimer</a>
+                    <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Annuler</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

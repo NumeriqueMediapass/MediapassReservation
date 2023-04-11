@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spectrum.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <h5 class="card-header">Demande d'ajout de ma structure</h5>
+                    <div class="card-body demo-vertical-spacing demo-only-element">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form.email.label_tag }}
+
+                                <div class="input-group">
+                                    {{ form.email }}
+                                    <span class="input-group-text">@</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.address.label_tag }}
+                            {{ form.address }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form.city.label_tag }}
+                                {{ form.city }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form.zip_code.label_tag }}
+                                {{ form.zip_code }}
+                            </div>
+                        </div>
+
+                        <div class="structure-register text-center">
+                           Vous recevrez une notification par e-mail lorsque la validation de votre structure sera effectuée.
+                        </div>
+
+                        <button class="btn btn-primary">Envoyer</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/spectrum.js' %}"></script>
+
+    <script>
+
+        $('.colorpicker').spectrum({
+            preferredFormat: "hex",
+            showInput: true,
+            allowEmpty:true,
+        });
+    </script>
+{% endblock %}

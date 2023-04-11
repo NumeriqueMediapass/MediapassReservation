@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card mb-4">
+
+                <h1 class="card-header">Résultats de la recherche</h1>
+
+                <ul>
+                    {% for result in results %}
+                        <a href="{% url 'product_detail' result.id %}">{{ result.name }}</a>
+                    {% empty %}
+                        <li>Aucun résultat trouvé.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

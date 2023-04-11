@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} une catégorie | {{ block.super }}{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <h5 class="card-header">{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} une catégorie</h5>
+                    <div class="card-body demo-vertical-spacing demo-only-element">
+
+                        <div class="row">
+                            {{ form.as_p }}
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                        <a href="{% url 'category_list' %}" class="btn btn-warning">Liste des catégories</a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

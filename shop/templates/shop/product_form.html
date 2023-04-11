@@ -1,0 +1,170 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="row">#}
+{#        <div class="col-md-12">#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    <h2>{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un produit</h2>#}
+{#                    <form method="post" enctype="multipart/form-data">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.name.label_tag }}#}
+{#                                {{ form.name }}#}
+{#                            </div>#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.category.label_tag }}#}
+{#                                {{ form.category }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.description.label_tag }}#}
+{#                                {{ form.description }}#}
+{#                            </div>#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.price.label_tag }}#}
+{#                                {{ form.price }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.quantity.label_tag }}#}
+{#                                {{ form.quantity }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-6">#}
+{#                                {{ form.image.label_tag }}#}
+{#                                {{ form.image }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row mt-2">#}
+{#                            <div class="col-md-12">#}
+{#                                <button type="submit" class="btn btn-primary">Envoyer</button>#}
+{#                                <a href="{% url 'product_list' %}" class="btn btn-warning">Liste des produits</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card mb-4">
+
+
+                {% if categories_count != 0 %}
+            <a href="{% url 'product_list' %}" class="btn btn-primary">Retour à la liste</a>
+
+                    <h5 class="card-header">{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un produit</h5>
+
+                <form method="post" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="card-body demo-vertical-spacing demo-only-element">
+
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                {% for error in form.name.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.category.label_tag }}
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                {% for error in form.category.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity }}
+                            {% if form.quantity.errors %}
+                                {% for error in form.quantity.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                                {% for error in form.status.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <label class="form-check-label" for="defaultCheck3"> Activer </label>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.image.label_tag }}
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                {% for error in form.image.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.price.label_tag }}
+                            {{ form.price }}
+                            {% if form.price.errors %}
+                                {% for error in form.price.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Description</span>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                {% for error in form.description.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %}</button>
+                        </div>
+
+                    </div>
+
+                </form>
+                {% else %}
+                    <div class="card-body text-center">
+                    Pour ajouter un produit vous devez d'abord ajouter une catégorie <br>
+                    <a class="btn btn-primary mt-3" href="{% url 'category_create' %}">Ajouter une catégorie</a>
+
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

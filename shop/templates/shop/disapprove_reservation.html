@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Désapprouver la réservation</h5>
+
+            <div class="card-body">
+                <p>Produit : {{ reservation.product.name }}</p>
+                <p>Date début : {{ reservation.start_date|date:'d/m/Y' }} - Heure de dépot : {{ reservation.deposit_time }}</p>
+                <p>Date fin : {{ reservation.end_date|date:'d/m/Y' }} - Heure de retour : {{ reservation.pickup_time }}</p>
+                <p>Quantité : {{ reservation.quantity }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Désapprouver</button>
+                    <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Annuler</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

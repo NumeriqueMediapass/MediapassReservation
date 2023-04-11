@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Nos produits | {{ block.super }}{% endblock %}
+{% block content %}
+    <h2>Nos ressources</h2>
+
+    <div class="row">
+
+        {% if product_count != 0 %}
+            {% for product in products %}
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4" style="display: flex;align-items: center; justify-content: center;">
+                                <img class="card-img card-img-left" style="height: auto;width: auto; max-height: 150px;max-width: 150px;" src="{{ product.image.url}}" alt="Card image" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></h5>
+                                    <p class="card-text">
+                                        {{ product.description|truncatechars:30 }}
+                                    </p>
+                                    <p class="card-text"><small class="text-muted"><a href="{% url 'category_detail' product.category.pk %}">{{ product.category.name }}</a></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Il n'y a encore aucun produit.</h5>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="card-footer">
+                      <a href="{% url 'category_create' %}" class="btn btn-primary">Ajouter une catégorie</a>  <a href="{% url 'product_create' %}" class="btn btn-primary">Ajouter un produit</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

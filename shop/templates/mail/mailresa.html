@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Nouvelle réservation pour {{ product.name }}</title>
+</head>
+<body>
+	<h2>Nouvelle réservation pour {{ product.name }}</h2>
+	<p>Une nouvelle réservation pour le produit <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> a été demandée par {{ reservation.structure.name }}.</p>
+	<p>Voici les détails de la réservation :</p>
+	<ul>
+		<li>Date de début : {{ reservation.start_date|date:'d/m/Y' }}</li>
+        <li>Date de fin : {{ reservation.end_date|date:'d/m/Y' }}</li>
+		<li>Structure : {{ reservation.structure.name }}</li>
+		<li>Quantité : {{ reservation.quantity }}</li>
+		{% if reservation.deposit_time %}
+			<li>Heure de dépôt : {{ reservation.deposit_time }}</li>
+		{% endif %}
+		{% if reservation.pickup_time %}
+			<li>Heure de récupération : {{ reservation.pickup_time }}</li>
+		{% endif %}
+		{% if reservation.description %}
+			<li>Description : {{ reservation.description }}</li>
+		{% endif %}
+	</ul>
+	<p>Veuillez consulter la liste des réservations pour plus de détails.</p>
+</body>
+</html>

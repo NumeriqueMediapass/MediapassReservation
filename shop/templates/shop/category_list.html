@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Liste des catégories | {{ block.super }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+{% endblock %}
+{% block content %}
+
+
+    <div class="row">
+        <a class="btn btn-primary" href="{% url 'category_create' %}">Ajouter une catégorie</a>
+
+        <div class="card">
+
+            <h5 class="card-header">Liste des catégorie</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    {% for category in categorys %}
+                        <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a></strong></td>
+                            <td>
+                                <a href="{% url 'category_detail' category.pk %}"><span class="badge bg-label-success me-1">Voir</span></a>
+                                <a href="{% url 'category_update' category.pk %}"><span class="badge bg-label-primary me-1">Modifier</span></a>
+                                <a href="{% url 'category_delete' category.pk %}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette catégorie ?');"><span class="badge bg-label-danger me-1">Supprimer</span></a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/French.json"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#list_categorys').DataTable(
+                {
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+
+                }
+            );
+        } );
+    </script>
+{% endblock %}
